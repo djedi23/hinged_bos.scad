@@ -1,4 +1,5 @@
-$fn = 100;
+// -*- mode: scad; tab-width: 2 -*-
+
 width = 40;
 depth = 40;
 height = 15;
@@ -12,8 +13,15 @@ fingerSize = 6.5;
 topFingerSize = fingerSize;
 pos = -depth/2;
 latchWidth = 8;
-z = 0;
+//z = 0;
 
+// logo filename
+logoFile="b_drawing.svg";
+logoScale = 0.5;
+
+logoInsetHeight = wallThickness / 2;
+
+$fn = 100 / 1;
 bottom();
 top();
 
@@ -24,7 +32,6 @@ module bottom() {
 			translate([-width - fingerLength, -depth/2, 0]) {
 				cube([width,depth,height]);
 			}
-	
 			translate([(-width - fingerLength) + wallThickness, -depth/2 + wallThickness, wallThickness]) {
 				cube([width - (wallThickness * 2), depth - (wallThickness * 2), height]);
 			}
@@ -33,8 +40,6 @@ module bottom() {
 			translate([-width - fingerLength + (wallThickness/2), (-latchWidth/2) - (hingeFingerSlop/2), wallThickness]) {
 				cube([wallThickness/2 + .1, latchWidth + hingeFingerSlop, height]);
 			}
-
-						
 		}
 
 		//latch cylinder
@@ -93,17 +98,18 @@ module top() {
 			translate([fingerLength, -depth/2, 0]) {
 				cube([width,depth,height - .5]);
 			}
-	
+
 			translate([fingerLength + wallThickness, -depth/2 + wallThickness, wallThickness]) {
 				cube([width - (wallThickness * 2), depth - (wallThickness * 2), height]);
 			}
 
-			
+			if (logoFile)
+				Logo();
 		}
 
 		//latch
-		translate([width + fingerLength - wallThickness - 1.5, (-latchWidth/2), 0]) {
-			cube([1.5, latchWidth, height - .5 + 4]);
+		translate([width + fingerLength - wallThickness - 1.5, (-latchWidth/2), wallThickness]) {
+			cube([1.5, latchWidth, height - .5 + 4 - wallThickness]);
 		}
 		translate([width + fingerLength - wallThickness, -latchWidth/2, height - .5 + 3]) {
 			rotate([-90,0,0]) {
@@ -150,4 +156,20 @@ module top() {
 			}
 		}
 	}
+}
+
+
+
+module Logo () {
+		/* boxwidth=cardWidth+(spaceAroundCard*2)+(wallthickness*4)+(spaceAroundLid*2); */
+		/* translate([((boxwidth/2)/2)+(boxwidth/2),wallthickness/3,boxwidth/1.5]) { */
+		/*		rotate(a=[90,180,0]){ */
+	translate ([fingerLength + width/2 - width*logoScale/2,
+							-depth/2 +depth/2 - depth*logoScale/2,
+							-logoInsetHeight]) {
+		resize([width*logoScale,depth*logoScale,logoInsetHeight*2]) {
+			linear_extrude(height = 4) import(logoFile);
+		}
+	}
+		/* } */
 }
