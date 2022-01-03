@@ -5,8 +5,9 @@
 // by Mose Valvassori <moise.valvassori@gmail.com>. 2021
 // v1.0.0 first publish
 // v1.0.1 fixing buckle holder postion
+// v1.0.2 fixing Y logos postions
 
-latchType = 1; // [0:latch,1:buckle,2:magnet]
+latchType = 0; // [0:latch,1:buckle,2:magnet]
 /* [Basic Sizes] */
 // Width of the box. (Outside)
 width = 40; //[5:0.1:100]
@@ -245,7 +246,7 @@ module BottomLogo () {
 	scaledLogoSize = logoSize*bottomLogoScale;
 
 	translate ([- (fingerLength + width/2) - scaledLogoSize/2,
-							depth/2 - scaledLogoSize/2,
+							scaledLogoSize/2,
 							-logoInsetHeight]) {
 		resize([scaledLogoSize,scaledLogoSize,logoInsetHeight*2]) {
 			mirror([0,1,0]) linear_extrude(height = 4) import(bottomLogoFilename);
@@ -402,7 +403,7 @@ module TopLogo () {
 	scaledLogoSize = logoSize*topLogoScale;
 
 	translate ([fingerLength + width/2 - scaledLogoSize/2,
-							depth/2 - scaledLogoSize/2,
+							scaledLogoSize/2,
 							-logoInsetHeight]) {
 		resize([scaledLogoSize,scaledLogoSize,logoInsetHeight*2]) {
 			mirror([0,1,0])	linear_extrude(height = 4) import(topLogoFilename);
