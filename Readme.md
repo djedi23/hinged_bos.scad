@@ -21,3 +21,4 @@ The changes are:
 I printed my boxes with 0.3 layer height but you can use a better quality without problem.
 No raft, no support needed.
 
+https://www.thingiverse.com/thing:5182021

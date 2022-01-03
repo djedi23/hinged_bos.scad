@@ -3,9 +3,10 @@
 // Parametric Hinged Box With Latch and Logos and Printable In One Piece.
 // Remix from https://www.thingiverse.com/thing:82533 and https://www.thingiverse.com/thing:82620
 // by Mose Valvassori <moise.valvassori@gmail.com>. 2021
+// v1.0.0 first publish
+// v1.0.1 fixing buckle holder postion
 
-
-latchType = 2; // [0:latch,1:buckle,2:magnet]
+latchType = 1; // [0:latch,1:buckle,2:magnet]
 /* [Basic Sizes] */
 // Width of the box. (Outside)
 width = 40; //[5:0.1:100]
@@ -140,36 +141,36 @@ module originalLatchCylinder(){
 }
 
 module buckleBottom(){
-			// new latch
-		difference() {
-			hull() {
-					translate([-(fingerLength*2) - width,-latchWidth,height-2.25]) {
-						rotate([-90,0,0]) {
-							cylinder(r = hingeOuter/2, h = latchWidth*2);
-						}
-					}
-					translate([-width - fingerLength, -latchWidth, height-hingeOuter-2.25]) {
-						cube([.1, latchWidth * 2, hingeOuter]);
-					}
-					translate([-(fingerLength*2) -width, -latchWidth,height-2.25]){
-							cube([fingerLength,latchWidth * 2,.1]);
-						}
-						translate([-(fingerLength*2) -width, -latchWidth,height-2.25]){
-							rotate([0,-20,0]) {
-								cube([hingeOuter-wallThickness,latchWidth*2,.01]);
-							}
-						}
+	// new latch
+	difference() {
+		hull() {
+			translate([-(fingerLength*2) - width,-latchWidth,height-2.25]) {
+				rotate([-90,0,0]) {
+					cylinder(r = hingeOuter/2, h = latchWidth*2);
 				}
-			translate([-(fingerLength*3) - width, -(latchWidth/2) - hingeFingerSlop,0]) {
-					cube([fingerLength*3, latchWidth + hingeFingerSlop * 2,height*2]);
+			}
+			translate([-width - fingerLength, -latchWidth, height-hingeOuter-2.25]) {
+				cube([.1, latchWidth * 2, hingeOuter]);
+			}
+			translate([-(fingerLength*2) -width, -latchWidth,height-2.25]){
+				cube([fingerLength,latchWidth * 2,.1]);
+			}
+			translate([-(fingerLength*2) -width, -latchWidth,height-2.25]){
+				rotate([0,-20,0]) {
+					cube([hingeOuter-wallThickness,latchWidth*2,.01]);
+				}
 			}
 		}
-		// latch rod
-		translate([-(fingerLength*2) -width, -latchWidth/2 - hingeFingerSlop, height-2.25]) {
-			rotate([-90,0,0]) {
-				cylinder(r = hingeInner /2, h = latchWidth + (hingeFingerSlop*2));
-			}
+		translate([-(fingerLength*3) - width, -(latchWidth/2) - hingeFingerSlop,0]) {
+			cube([fingerLength*3, latchWidth + hingeFingerSlop * 2,height*2]);
 		}
+	}
+	// latch rod
+	translate([-(fingerLength*2) -width, -latchWidth/2 - hingeFingerSlop, height-2.25]) {
+		rotate([-90,0,0]) {
+			cylinder(r = hingeInner /2, h = latchWidth + (hingeFingerSlop*2));
+		}
+	}
 }
 
 
@@ -242,7 +243,7 @@ module magnetBottom () {
 module BottomLogo () {
 	logoSize = min(width,depth);
 	scaledLogoSize = logoSize*bottomLogoScale;
-	
+
 	translate ([- (fingerLength + width/2) - scaledLogoSize/2,
 							depth/2 - scaledLogoSize/2,
 							-logoInsetHeight]) {
@@ -334,36 +335,37 @@ module latch(){
 }
 
 module buckleTop(){
-			// new latch
-		difference() {
-			hull() {
-					translate([(fingerLength*2) + width,-latchWidth,height/2]) {
-						rotate([-90,0,0]) {
-							cylinder(r = hingeOuter/2, h = latchWidth*2);
-						}
-					}
-					translate([width + fingerLength, -latchWidth, 0]) {
-						cube([.1, latchWidth * 2, hingeOuter]);
-					}
-					translate([fingerLength + width, -latchWidth,height/2]){
-						cube([fingerLength,latchWidth * 2,.1]);
-					}
-					translate([fingerLength + width, -latchWidth,(height/2) + (hingeOuter/1.5)]){
-						rotate([0,45,0]) {
-							cube([hingeOuter,latchWidth*2,.01]);
-						}
-					}
+	bt = 7.5;
+	// new latch
+	difference() {
+		hull() {
+			translate([(fingerLength*2) + width,-latchWidth, bt]) {
+				rotate([-90,0,0]) {
+					cylinder(r = hingeOuter/2, h = latchWidth*2);
+				}
 			}
-			translate([fingerLength + width, -(latchWidth/2) - hingeFingerSlop,0]) {
-					cube([fingerLength*2, latchWidth + (hingeFingerSlop * 2),height*2]);
+			translate([width + fingerLength, -latchWidth, 0]) {
+				cube([.1, latchWidth * 2, hingeOuter]);
+			}
+			translate([fingerLength + width, -latchWidth,bt]){
+				cube([fingerLength,latchWidth * 2,.1]);
+			}
+			translate([fingerLength + width, -latchWidth,bt + (hingeOuter/1.5)]){
+				rotate([0,45,0]) {
+					cube([hingeOuter,latchWidth*2,.01]);
+				}
 			}
 		}
-		// latch rod
-		translate([(fingerLength*2) + width, -latchWidth/2 - hingeFingerSlop, height/2]) {
-			rotate([-90,0,0]) {
-				cylinder(r = hingeInner /2, h = latchWidth + (hingeFingerSlop*2));
-			}
+		translate([fingerLength + width, -(latchWidth/2) - hingeFingerSlop,0]) {
+			cube([fingerLength*2, latchWidth + (hingeFingerSlop * 2),height*2]);
 		}
+	}
+	// latch rod
+	translate([(fingerLength*2) + width, -latchWidth/2 - hingeFingerSlop, bt]) {
+		rotate([-90,0,0]) {
+			cylinder(r = hingeInner /2, h = latchWidth + (hingeFingerSlop*2));
+		}
+	}
 }
 
 module magnetTop () {
@@ -407,4 +409,3 @@ module TopLogo () {
 		}
 	}
 }
-
