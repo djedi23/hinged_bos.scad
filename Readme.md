@@ -2,8 +2,16 @@ Sometime, I need simple boxes with labels to keep stuffs organized.
 
 You can choose between 3 types of latches:
  - the original one
+
+<img src="logos_dual_colors.jpg" alt="logos_dual_colors" style="zoom:25%;" />
+
  - the buckle
+
+<img src="logos_and_bucke.jpg" alt="logos_dual_colors" style="zoom:25%;" />
+
  - magnets
+
+<img src="logos_and_magnets.jpg" alt="logos_dual_colors" style="zoom:25%;" />
 
 Two SVG/DXF files can be imported on the bottom and top faces of the box.
 The logos will be resized to a square surface. 
